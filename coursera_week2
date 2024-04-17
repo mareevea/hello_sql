@@ -1,1 +1,249 @@
+Find all the tracks that have a length of 5,000,000 milliseconds or more.
 
+SELECT milliseconds
+from tracks
+where milliseconds >=  "5000000"
+
++--------------+
+| Milliseconds |
++--------------+
+|      5286953 |
+|      5088838 |
++--------------+
+How many tracks are returned?
+
+2
+
+While the query in this example is limited to 10 records, running the query correctly will indicate how many total records there are - enter that number below.
+select Total
+from invoices
+where Total between "5" and "15"
++-------+
+| Total |
++-------+
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
+|  8.91 |
+| 13.86 |
+|  5.94 |
++-------+
+(Output limit exceeded, 25 of 168 total rows shown)
+
+168
+
+Find all the customers from the following States: RJ, DF, AB, BC, CA, WA, NY.
+
+select state, customerid
+from customers
+where state in("RJ", "DF", "AB", "BC", "WA", "NY")
+
++-------+------------+
+| State | CustomerId |
++-------+------------+
+| RJ    |         12 |
+| DF    |         13 |
+| AB    |         14 |
+| BC    |         15 |
+| WA    |         17 |
+| NY    |         18 |
++-------+------------+
+
+What company does Jack Smith work for? 
+
+select  firstname, company
+from customers
+where firstname = "Jack"
+/*where state in("RJ", "DF", "AB", "BC", "WA", "NY")*/
+
+Microsoft Corp
+
+Find all the invoices for customer 56 and 58 where the total was between $1.00 and $5.00.
+select customerid, total
+from invoices
+where customerid in ("56", "58")
+AND TOTAL BETWEEN 1 AND 5
+
++------------+-------+
+| CustomerId | Total |
++------------+-------+
+|         56 |  1.98 |
+|         56 |  3.96 |
+|         56 |  1.98 |
+|         58 |  1.98 |
+|         58 |  1.98 |
+|         58 |  3.96 |
+|         58 |  1.99 |
++------------+-------+
+
+
+Find all the tracks whose name starts with 'All'.
+SELECT NAME
+FROM TRACKS
+WHERE NAME LIKE "all%"
+
+Name                                   |
++----------------------------------------+
+| All I Really Want                      |
+| All For You                            |
+| All Star                               |
+| All My Life                            |
+| All My Love                            |
+| All Within My Hands                    |
+| All or None                            |
+| All Dead, All Dead                     |
+| All the Best Cowboys Have Daddy Issues |
+| All Because Of You                     |
+| All Along The Watchtower               |
+| All I Want Is You                      |
+| All I Want Is You                      |
+| All My Love                            |
+| All Night Thing                        |
++----------------------------------------+
+
+Count all the tracks whose name starts with 'All'.
+SELECT count(NAME)
+FROM TRACKS
+WHERE NAME LIKE "all%"
+
++-------------+
+| count(NAME) |
++-------------+
+|          15 |
++-------------+
+
+
+Find all the customer emails that start with "J" and are from gmail.com.
+
+select email
+from customers
+where email like ('j%@gmail.com')
+
+jubarnett@gmail.com
+
+Find all the invoices from the billing city Brasília, Edmonton, and Vancouver and sort in descending order by invoice ID.
+
+select total
+from invoices
+where BillingCity in ("Edmonton", "Brasília", "Vancouver")
+order by total desc
+
++-------+
+| Total |
++-------+
+| 13.86 |
+| 13.86 |
+| 13.86 |
+|  9.91 |
+|  8.91 |
+|  8.91 |
+|  5.94 |
+|  5.94 |
+|  5.94 |
+|  3.96 |
+|  3.96 |
+|  3.96 |
+|  1.98 |
+|  1.98 |
+|  1.98 |
+|  1.98 |
+|  1.98 |
+|  1.98 |
+|  0.99 |
+|  0.99 |
+|  0.99 |
++-------+
+
+Show the number of orders placed by each customer (hint: this is found in the invoices table) and sort the result by the number of orders in descending order.
+
+select  customerid, count(*)
+from invoices
+group by customerid
+
++------------+----------+
+| CustomerId | count(*) |
++------------+----------+
+|          1 |        7 |
+|          2 |        7 |
+|          3 |        7 |
+|          4 |        7 |
+|          5 |        7 |
+|          6 |        7 |
+|          7 |        7 |
+|          8 |        7 |
+|          9 |        7 |
+|         10 |        7 |
+|         11 |        7 |
+|         12 |        7 |
+|         13 |        7 |
+|         14 |        7 |
+|         15 |        7 |
+|         16 |        7 |
+|         17 |        7 |
+|         18 |        7 |
+|         19 |        7 |
+|         20 |        7 |
+|         21 |        7 |
+|         22 |        7 |
+|         23 |        7 |
+|         24 |        7 |
+|         25 |        7 |
++------------+----------+
+(Output limit exceeded, 25 of 59 total rows shown)
+
+Find the albums with 12 or more tracks.
+select albumid, count (*)
+from tracks
+group by albumid
+having count(*) >=12
+
+
++---------+-----------+
+| AlbumId | count (*) |
++---------+-----------+
+|       5 |        15 |
+|       6 |        13 |
+|       7 |        12 |
+|       8 |        14 |
+|      10 |        14 |
+|      11 |        12 |
+|      12 |        12 |
+|      14 |        13 |
+|      18 |        17 |
+|      21 |        18 |
+|      23 |        34 |
+|      24 |        23 |
+|      25 |        13 |
+|      26 |        17 |
+|      27 |        14 |
+|      29 |        14 |
+|      30 |        14 |
+|      32 |        14 |
+|      33 |        17 |
+|      34 |        17 |
+|      36 |        17 |
+|      37 |        20 |
+|      38 |        12 |
+|      39 |        21 |
+|      40 |        12 |
++---------+-----------+
+(Output limit exceeded, 25 of 158 total rows shown)
