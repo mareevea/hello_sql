@@ -1,0 +1,5 @@
+select tracks.name, albums.title
+from  tracks INNER JOIN albums on tracks.albumid = albums.albumid
+where albums.title = "Californication"
+limit 8
+
