@@ -1,5 +1,163 @@
+QN 1: What is the title of the 8th track?
+
 select tracks.name, albums.title
 from  tracks INNER JOIN albums on tracks.albumid = albums.albumid
 where albums.title = "Californication"
 limit 8
 
++-------------------+-----------------+
+| Name              | Title           |
++-------------------+-----------------+
+| Around The World  | Californication |
+| Parallel Universe | Californication |
+| Scar Tissue       | Californication |
+| Otherside         | Californication |
+| Get On Top        | Californication |
+| Californication   | Californication |
+| Easily            | Californication |
+| Porcelain         | Californication |
++-------------------+-----------------+
+ANS: Porcelain
+
+QN 2: After running the query described above, what is the email address of the 5th person, František Wichterlová? Enter the answer below (feel free to copy and paste).
+
+select count(invoices.invoiceid),  invoices.customerid, customers.firstname, customers.email,customers.lastname, customers.city
+from invoices inner join customers on invoices.customerid = customers.customerid
+ group by invoices.customerid 
+limit 5
+
+
++---------------------------+------------+-----------+--------------------------+-------------+---------------------+
+| count(invoices.invoiceid) | CustomerId | FirstName | Email                    | LastName    | City                |
++---------------------------+------------+-----------+--------------------------+-------------+---------------------+
+|                         7 |          1 | Luís      | luisg@embraer.com.br     | Gonçalves   | São José dos Campos |
+|                         7 |          2 | Leonie    | leonekohler@surfeu.de    | Köhler      | Stuttgart           |
+|                         7 |          3 | François  | ftremblay@gmail.com      | Tremblay    | Montréal            |
+|                         7 |          4 | Bjørn     | bjorn.hansen@yahoo.no    | Hansen      | Oslo                |
+|                         7 |          5 | František | frantisekw@jetbrains.com | Wichterlová | Prague              |
++---------------------------+------------+-----------+--------------------------+-------------+---------------------+
+ANS: frantisekw@jetbrains.com
+
+QN 3: What is the song title of trackID 12 from the "For Those About to Rock We Salute You" album? Enter the answer below.
+
+select tracks.name, albums.title, artists.artistid, tracks.trackid
+from tracks INNER JOIN albums ON tracks.albumid = albums.albumid
+  INNER JOIN artists on artists.artistid = artists.artistid
+limit 12
++-----------------------------------------+---------------------------------------+----------+---------+
+| Name                                    | Title                                 | ArtistId | TrackId |
++-----------------------------------------+---------------------------------------+----------+---------+
+| For Those About To Rock (We Salute You) | For Those About To Rock We Salute You |        1 |       1 |
+| Balls to the Wall                       | Balls to the Wall                     |        1 |       2 |
+| Fast As a Shark                         | Restless and Wild                     |        1 |       3 |
+| Restless and Wild                       | Restless and Wild                     |        1 |       4 |
+| Princess of the Dawn                    | Restless and Wild                     |        1 |       5 |
+| Put The Finger On You                   | For Those About To Rock We Salute You |        1 |       6 |
+| Let's Get It Up                         | For Those About To Rock We Salute You |        1 |       7 |
+| Inject The Venom                        | For Those About To Rock We Salute You |        1 |       8 |
+| Snowballed                              | For Those About To Rock We Salute You |        1 |       9 |
+| Evil Walks                              | For Those About To Rock We Salute You |        1 |      10 |
+| C.O.D.                                  | For Those About To Rock We Salute You |        1 |      11 |
+| Breaking The Rules                      | For Those About To Rock We Salute You |        1 |      12 |
++-----------------------------------
+ANS: Breaking The Rules
+
+QN 4: 
+Retrieve a list with the managers last name, and the last name of the employees who report to him or her.
+After running the query described above, who are the reports for the manager named Mitchell (select all that apply)?
+
+1 / 1 point
+
+select e.lastname as emplyee, m.lastname as manager
+from employees e inner join employees m on e.reportsto = m.employeeid
++----------+----------+
+| employee | manager  |
++----------+----------+
+| Edwards  | Adams    |
+| Peacock  | Edwards  |
+| Park     | Edwards  |
+| Johnson  | Edwards  |
+| Mitchell | Adams    |
+| King     | Mitchell |
+| Callahan | Mitchell |
++----------+----------+
+
+ANS: Callahan AND King
+
+QN 5: Find the name and ID of the artists who do not have albums. 
+select artists.name, albums.title, artists.artistid
+from artists 
+LEFT join albums 
+
+on 
+artists.artistid = albums.artistid
+  
+ where albums.title is null
++------------------------------------------------------+-------+----------+
+| Name                                                 | Title | ArtistId |
++------------------------------------------------------+-------+----------+
+| Milton Nascimento & Bebeto                           |  None |       25 |
+| Azymuth                                              |  None |       26 |
+| João Gilberto                                        |  None |       28 |
+| Bebel Gilberto                                       |  None |       29 |
+| Jorge Vercilo                                        |  None |       30 |
+| Baby Consuelo                                        |  None |       31 |
+| Ney Matogrosso                                       |  None |       32 |
+| Luiz Melodia                                         |  None |       33 |
+| Nando Reis                                           |  None |       34 |
+| Pedro Luís & A Parede                                |  None |       35 |
+| Banda Black Rio                                      |  None |       38 |
+| Fernanda Porto                                       |  None |       39 |
+| Os Cariocas                                          |  None |       40 |
+| A Cor Do Som                                         |  None |       43 |
+| Kid Abelha                                           |  None |       44 |
+| Sandra De Sá                                         |  None |       45 |
+| Hermeto Pascoal                                      |  None |       47 |
+| Barão Vermelho                                       |  None |       48 |
+| Edson, DJ Marky & DJ Patife Featuring Fernanda Porto |  None |       49 |
+| Santana Feat. Dave Matthews                          |  None |       60 |
+| Santana Feat. Everlast                               |  None |       61 |
+| Santana Feat. Rob Thomas                             |  None |       62 |
+| Santana Feat. Lauryn Hill & Cee-Lo                   |  None |       63 |
+| Santana Feat. The Project G&B                        |  None |       64 |
+| Santana Feat. Maná                                   |  None |       65 |
++------------------------------------------------------+-------+----------+
+(Output limit exceeded, 25 of 71 total rows sho
+
+QN 6: Use a UNION to create a list of all the employee's and customer's first names and last names ordered by the last name in descending order.
+
+select firstname, lastname from employees
+union
+select firstname, lastname from customers
+order by lastname desc
+limit 6
+
++-----------+--------------+
+| firstname | lastname     |
++-----------+--------------+
+| Fynn      | Zimmermann   |
+| Stanisław | Wójcik       |
+| František | Wichterlová  |
+| Johannes  | Van der Berg |
+| François  | Tremblay     |
+| Mark      | Taylor       |
++-----------+--------------+
+
+
+QN 6 PART 2) After running the query described above, determine what is the last name of the 6th record? Enter it below. Remember to order things in descending order to be sure to get the correct answer.
+ans: Taylor
+
+QN 7: See if there are any customers who have a different city listed in their billing city versus their customer city.
+
+select customers.customerid, invoices.billingcity, customers.city
+from customers inner join invoices on customers.customerid = invoices.customerid
+where invoices.billingcity NOT LIKE customers.city
+
++------------+-------------+------+
+| CustomerId | BillingCity | City |
++------------+-------------+------+
++------------+-------------+------+
+(Zero rows)
+
+
+ans: No customers have a different city listed in their billing city versus customer city.
